@@ -1,0 +1,18 @@
+{
+  "name": "IOSRatingFetcher",
+  "version": "1.0.0",
+  "description": "Fetches ratings of ios apps from itunes. Should theoratically also work for anything listed on itunes.",
+  "main": "index.js",
+  "author": "MNM",
+  "license": "MIT",
+  "keywords": ["ios", "ratings", "itunes"],
+  "homepage": "https://github.com/mnm1992/iOSRatingScraper",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mnm1992/iOSRatingScraper.git"
+  },
+  "dependencies": {
+    "html2json": "^1.0.2",
+    "request-promise": "^4.2.2"
+  }
+}
