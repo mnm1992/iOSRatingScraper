@@ -6,7 +6,11 @@ Usage:
 ```javascript
 const IOSRatingFetcher = require('iosratingfetcher');
 const ratingFetcher = new IOSRatingFetcher();
-const result = await ratingFetcher.fetchRatings(<itunes app id>, <country code>);
+//1063224663 is the itunes app id
+//nl is the countrycode we want to fetch reviews for
+ratingFetcher.fetchRatings('1063224663', 'nl').then((result) => {
+    console.log(result);
+});
 ```
 
 The result will look like:
