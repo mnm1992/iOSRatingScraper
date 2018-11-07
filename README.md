@@ -4,7 +4,7 @@ Fetches ratings of ios apps from itunes. Should theoratically also work for anyt
 Usage:
 
 ```javascript
-const IOSRatingFetcher = require('IOSRatingFetcher');
+const IOSRatingFetcher = require('iosratingfetcher');
 const ratingFetcher = new IOSRatingFetcher();
 const result = await ratingFetcher.fetchRatings(<itunes app id>, <country code>);
 ```

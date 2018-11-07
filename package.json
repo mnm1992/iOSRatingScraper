@@ -1,5 +1,5 @@
 {
-  "name": "IOSRatingFetcher",
+  "name": "iosratingfetcher",
   "version": "1.0.0",
   "description": "Fetches ratings of ios apps from itunes. Should theoratically also work for anything listed on itunes.",
   "main": "index.js",
