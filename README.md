@@ -30,3 +30,13 @@ The result will look like:
 
 Supported country codes:
 ae, ag, ai, am, ao, ar, at, au, az, bb, be, bg, bh, bm, bn, bo, br, bs, bw, by, bz, ca, ch, cl, cn, co, cr, cy, cz, de, dk, dm, do, dz, ec, ee, eg, es, fi, fr, gb, gd, gh, gr, gt, gy, hk, hn, hr, hu, id, ie, il, in, is, it, jm, jo, jp, ke, kn, kr, kw, ky, kz, lb, lc, lk, lt, lu, lv, md, mg, mk, ml, mo, ms, mt, mu, mx, my, ne, ng, ni, nl, no, nz, om, pa, pe, ph, pk, pl, pt, py, qa, ro, ru, sa, se, sg, si, sk, sn, sr, sv, tc, th, tn, tr, tt, tw, tz, ug, us, uy, uz, vc, ve, vg, vn, ye, za
+
+How does it work:
+It uses the apple itunes page to get the ratings and histogram for a country.
+An example itunes page is: 
+//1063224663 is the itunes app id)
+http://itunes.apple.com/WebObjects/MZStore.woa/wa/customerReviews?s=143444&id=1063224663&displayable-kind=11&#8217
+It only works if the following headers are set:
+'User-Agent': 'iTunes/9.2.1 (Macintosh; Intel Mac OS X 10.5.8) AppleWebKit/533.16', (We need to pretend to be itunes or we only get the please open in itunes page)
+'X-Apple-Store-Front': 143452,12, (Store id of the dutch appstore, for a list of all storeids see IOSStores.json)
+"Accept-Language": 'en-us, en;q=0.50'
