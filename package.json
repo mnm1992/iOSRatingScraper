@@ -5,7 +5,11 @@
   "main": "index.js",
   "author": "MNM",
   "license": "MIT",
-  "keywords": ["ios", "ratings", "itunes"],
+  "keywords": [
+    "ios",
+    "ratings",
+    "itunes"
+  ],
   "homepage": "https://github.com/mnm1992/iOSRatingScraper",
   "repository": {
     "type": "git",
