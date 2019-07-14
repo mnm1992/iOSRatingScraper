@@ -6,9 +6,9 @@ Usage:
 ```javascript
 const IOSRatingFetcher = require('iosratingfetcher');
 const ratingFetcher = new IOSRatingFetcher();
-//1063224663 is the itunes app id
+//585027354 is the itunes app id
 //nl is the countrycode we want to fetch reviews for
-ratingFetcher.fetchRatings('1063224663', 'nl').then((result) => {
+ratingFetcher.fetchRatings('585027354', 'nl').then((result) => {
     console.log(result);
 });
 ```
@@ -34,8 +34,8 @@ ae, ag, ai, am, ao, ar, at, au, az, bb, be, bg, bh, bm, bn, bo, br, bs, bw, by, 
 How does it work:<br/>
 It uses the apple itunes page to get the ratings and histogram for a country.<br/>
 An example itunes page is: <br/>
-1063224663 is the itunes app id<br/>
-http://itunes.apple.com/WebObjects/MZStore.woa/wa/customerReviews?s=143444&id=1063224663&displayable-kind=11&#8217<br/>
+585027354 is the itunes app id<br/>
+http://itunes.apple.com/WebObjects/MZStore.woa/wa/customerReviews?s=143444&id=585027354&displayable-kind=11&#8217<br/>
 It only works if the following headers are set:<br/>
 'User-Agent': 'iTunes/9.2.1 (Macintosh; Intel Mac OS X 10.5.8) AppleWebKit/533.16', (We need to pretend to be itunes or we only get the please open in itunes page)<br/>
 'X-Apple-Store-Front': 143452,12, (Store id of the dutch appstore, for a list of all storeids see IOSStores.json)<br/>
