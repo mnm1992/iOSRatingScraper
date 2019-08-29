@@ -2,7 +2,7 @@
 
 const storeMap = require('./iOSStores');
 const Request = require('request-promise');
-const html2json = require('html2json').html2json;
+const parse = require('node-html-parser').parse;
 
 module.exports = class IOSRatingFetcher {
 
@@ -30,11 +30,11 @@ module.exports = class IOSRatingFetcher {
             }
         };
         try {
-            const result = await Request(options);
-            const json = html2json(result);
-            const map = {};
-            map[country] = this.jsonToHistogram(json, country);
-            return map;
+          const result = await Request(options);
+          const json = parse(result);
+          const map = {};
+          map[country] = this.jsonToHistogram(json, country);
+          return map;
         } catch (error) {
             throw new Error('Error while fetching ratings for %s: ' + error, country);
             /*const map = {};
@@ -78,16 +78,13 @@ module.exports = class IOSRatingFetcher {
     
 
     jsonToHistogram(json, country) {
-        const ratingContainer = this.walkJsonTree('child/1/child/3/child/1/child/1', json) ;
-        if(!ratingContainer) {
-            return this.emptyResponse;
-        }
+		const parent = json.childNodes[2].childNodes[3].childNodes[1].childNodes[2].childNodes;
 
-        const amountOf5Stars = parseInt(this.walkJsonTree('child/5/attr/aria-label/2', ratingContainer));
-        const amountOf4Stars = parseInt(this.walkJsonTree('child/7/attr/aria-label/2', ratingContainer));
-        const amountOf3Stars = parseInt(this.walkJsonTree('child/9/attr/aria-label/2', ratingContainer));
-        const amountOf2Stars = parseInt(this.walkJsonTree('child/11/attr/aria-label/2', ratingContainer));
-        const amountOf1Stars = parseInt(this.walkJsonTree('child/13/attr/aria-label/2', ratingContainer));
+        const amountOf5Stars = parseInt(parent[5].rawAttrs.split(',')[1]);
+        const amountOf4Stars = parseInt(parent[7].rawAttrs.split(',')[1]);
+        const amountOf3Stars = parseInt(parent[9].rawAttrs.split(',')[1]);
+        const amountOf2Stars = parseInt(parent[11].rawAttrs.split(',')[1]);
+        const amountOf1Stars = parseInt(parent[13].rawAttrs.split(',')[1]);
 
         if(isNaN(amountOf5Stars) || isNaN(amountOf4Stars) || isNaN(amountOf3Stars) || isNaN(amountOf2Stars) || isNaN(amountOf1Stars)) {
             console.error('Not enough ratings for %s or apple changed the page layout', country);

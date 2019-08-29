@@ -16,7 +16,7 @@
     "url": "https://github.com/mnm1992/iOSRatingScraper.git"
   },
   "dependencies": {
-    "html2json": "^1.0.2",
+    "node-html-parser": "^1.1.16",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   }
