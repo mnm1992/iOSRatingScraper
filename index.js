@@ -63,7 +63,7 @@ module.exports = class IOSRatingFetcher {
       const histogram = {};
       for(let i =1; i<6; i++) {
           histogram[6-i] = parseInt(parent.childNodes[(i*2)+3].childNodes[5].childNodes[0].rawText);
-          if(isNaN(histogram[i])) {
+          if(isNaN(histogram[6-i])) {
               histogram[i] = 0;
               console.error('Not enough ratings for %s or apple changed the page layout', country);
               return this.emptyResponse;
