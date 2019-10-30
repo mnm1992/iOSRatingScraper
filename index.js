@@ -37,9 +37,6 @@ module.exports = class IOSRatingFetcher {
           return map;
         } catch (error) {
             throw new Error('Error while fetching ratings for %s: ' + error, country);
-            /*const map = {};
-            map[country] = this.emptyResponse;
-            return map;*/
         }
     }
 
@@ -60,48 +57,24 @@ module.exports = class IOSRatingFetcher {
         };
     }
 
-    walkJsonTree(path, json) {
-        if(!json || !path) {
-            return null;
-        }
-        const pathComponents = path.split('/');
-        let currentView = json;
-        for (let i = 0; i < pathComponents.length; i++) {
-            if (currentView[pathComponents[i]]) {
-                currentView = currentView[pathComponents[i]];
-            } else {
-                return null;
-            }
-        }
-        return currentView;
-    }
-    
 
     jsonToHistogram(json, country) {
-		const parent = json.childNodes[2].childNodes[3].childNodes[1].childNodes[2].childNodes;
+      const parent = json.childNodes[0].childNodes[3].childNodes[1].childNodes[1];
+      const histogram = {};
+      for(let i =1; i<6; i++) {
+          histogram[6-i] = parseInt(parent.childNodes[(i*2)+3].childNodes[5].childNodes[0].rawText);
+          if(isNaN(histogram[i])) {
+              histogram[i] = 0;
+              console.error('Not enough ratings for %s or apple changed the page layout', country);
+              return this.emptyResponse;
+          }
+      }
 
-        const amountOf5Stars = parseInt(parent[5].rawAttrs.split(',')[1]);
-        const amountOf4Stars = parseInt(parent[7].rawAttrs.split(',')[1]);
-        const amountOf3Stars = parseInt(parent[9].rawAttrs.split(',')[1]);
-        const amountOf2Stars = parseInt(parent[11].rawAttrs.split(',')[1]);
-        const amountOf1Stars = parseInt(parent[13].rawAttrs.split(',')[1]);
-
-        if(isNaN(amountOf5Stars) || isNaN(amountOf4Stars) || isNaN(amountOf3Stars) || isNaN(amountOf2Stars) || isNaN(amountOf1Stars)) {
-            console.error('Not enough ratings for %s or apple changed the page layout', country);
-            return this.emptyResponse;
-        }
-        const histogram = {
-            1: amountOf1Stars,
-            2: amountOf2Stars,
-            3: amountOf3Stars,
-            4: amountOf4Stars,
-            5: amountOf5Stars
-        };
-        const averageSet = this.averageFromHistogram(histogram);
-        return {
-            histogram: histogram,
-            total: averageSet.amount,
-            average: averageSet.average
-        };
+      const averageSet = this.averageFromHistogram(histogram);
+      return {
+          histogram: histogram,
+          total: averageSet.amount,
+          average: averageSet.average
+      };
     }
 };
